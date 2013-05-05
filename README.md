@@ -26,7 +26,6 @@ Point your browser to `http://localhost:8529/fugu/viewer` and setup a new projec
 ## Known issues
 
 **Error logger:**  
-- `fugu.errorlogger.js` expects logging endpoint to be `http://localhost:8529/fugu/logging/` (this can't be injected dynamically at the moment)
 - Include stacktrace.js results in report
 
 **Project/logfile viewer:**  

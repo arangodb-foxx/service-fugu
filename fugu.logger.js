@@ -15,7 +15,7 @@ var projects = app.registerRepository('projects');
 var errors   = app.registerRepository('errors');
 
 
-app.post("/:projectKey", function(req, res) {
+app.post("/:projectkey", function(req, res) {
   var content = '';
 
   try {
@@ -23,13 +23,13 @@ app.post("/:projectKey", function(req, res) {
     content.timeStamp = (new Date()).toISOString();
     content.userAgent = (new UAParser(req.headers['user-agent'] || '')).getResult();
 
-    var project = repositories.projects.collection.firstExample("_key", req.params("projectKey"));
+    var project = repositories.projects.collection.firstExample("_key", req.params("projectkey"));
     if (project && project._key) {
       content.project_key = project._key;
       repositories.errors.collection.save(content);
     }
   } catch(e) {
-    console.error('[fugu] Unable to parse error request body.');
+    console.error('[Fugu] Unable to parse error request body.');
   }
 
   res.set('Access-Control-Allow-Origin', '*');

@@ -1,9 +1,7 @@
 /*jshint strict:false, browser:true */
 /*global XMLHttpRequest:true, XDomainRequest:true, printStackTrace:true */
 
-var baseUrl = 'http://localhost:8529/fugu/logging/';
-var projectId;
-
+var baseUrl, projectId;
 
 function createCORSRequest(method, url) {
 	var xhr = new XMLHttpRequest();
@@ -44,6 +42,19 @@ function logError(error) {
 }
 
 
+// Get logging endpoint from own base url
+var scripts = document.getElementsByTagName('script');
+for (var i = 0, len = scripts.length; i < len; i++) {
+	if (scripts[i].src.lastIndexOf('fugu.errorlogger.js') !== -1) {
+		baseUrl = scripts[i].src.split('fugu.errorlogger.js')[0] + 'logging/';
+		break;
+	}
+}
+
+if (!baseUrl) {
+	return logConsoleError('[Fugu] Could not determine logging API endpoint.');
+}
+
 // Check for project ID
 if ( window._fugu ) {
 	for (var i = 0, len = window._fugu.length; i < len; i++) {
@@ -66,7 +77,3 @@ if (window.addEventListener) {
 } else {
 	logConsoleError('[Fugu] Could not attach error logger.');
 }
-
-
-
-
