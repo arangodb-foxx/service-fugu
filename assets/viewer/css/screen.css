@@ -1,0 +1,63 @@
+html,
+body,
+#wrap {
+  height: 100%;
+}
+
+body > #wrap {
+  height: auto;
+  min-height: 100%;
+}
+
+#main {
+  padding-bottom: 100px;
+}
+
+.container-fluid {
+	margin: 0 auto;
+	max-width: 70em;
+}
+
+#content {
+	margin-bottom: 3em;
+}
+
+.btn-invisible {
+	border: 0 none;
+	background: transparent;
+	padding: 0;
+}
+
+pre {
+	min-height: 15em;
+	white-space: pre-line;
+}
+
+.text-right { text-align: right !important; }
+
+.error-list { margin-top: 2em; }
+
+.error-list h3 {
+	margin: 0 0 20px;
+	line-height: 1;
+}
+
+#error-list strong {
+	display: inline-block;
+	min-width: 10em;
+}
+
+.footer {
+	position: relative;
+	margin-top: -101px;
+	height: 100px;
+	clear: both;
+	overflow: hidden;
+
+	border-top: 1px solid #e5e5e5;
+	background-color: #f5f5f5;
+	}
+
+	.footer > div {
+		margin: 30px auto 20px;
+	}

@@ -1,0 +1,57 @@
+{
+  "name": "Fugu",
+  "version": "0.1.0",
+  "description": "A client side error logging service for ArangoDB",
+
+  "apps": {
+    "/logging/": "fugu.logger.js",
+    "/viewer/": "fugu.viewer.js"
+  },
+
+  "lib": ".",
+
+  "setup": "scripts/setup.js",
+  "teardown": "scripts/teardown.js",
+
+  "assets": {
+    "demo.html": {
+      "files": [
+        "assets/demo.html"
+      ]
+    },
+    "fugu.errorlogger.js": {
+      "files": [
+        "assets/logger/intro.js",
+        "assets/logger/errorlogger.js",
+        "assets/logger/outro.js"
+      ]
+    },
+    "viewer/js/vendor.js": {
+      "files": [
+        "assets/viewer/vendor/jquery/jquery.js",
+        "assets/viewer/vendor/underscore/underscore.js",
+        "assets/viewer/vendor/backbone/backbone.js",
+        "assets/viewer/vendor/jquery.truncate.js",
+        "assets/viewer/vendor/strftime.js"
+      ]
+    },
+    "viewer/js/app.js": {
+      "files": [
+        "assets/viewer/js/collections/projects.js",
+        "assets/viewer/js/collections/errors.js",
+        "assets/viewer/js/views/projects.js",
+        "assets/viewer/js/views/newProject.js",
+        "assets/viewer/js/views/editProject.js",
+        "assets/viewer/js/views/errors.js",
+        "assets/viewer/js/router.js"
+      ]
+    },
+    "/viewer/": {
+      "files": ["assets/viewer/index.html"]
+    }
+  },
+
+  "files": {
+    "/viewer": "assets/viewer"
+  }
+}

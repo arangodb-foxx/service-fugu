@@ -1,0 +1,21 @@
+{
+  "boss"         : true,
+  "curly"        : true,
+  "eqeqeq"       : true,
+  "eqnull"       : true,
+  "es5"          : true,
+  "globalstrict" : true,
+  "immed"        : true,
+  "latedef"      : true,
+  "newcap"       : true,
+  "noarg"        : true,
+  "node"         : true,
+  "sub"          : true,
+  "undef"        : true,
+  "unused"       : true,
+  "globals" : {
+    "app"                : true,
+    "applicationContext" : true,
+    "db"                 : true
+  }
+}

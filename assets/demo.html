@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Fugu • Error logging demo</title>
+	<style>
+		body {
+			font: 1em/1.5 Arial, sans-serif;
+			max-width: 30em;
+		}
+
+		#error {
+			margin: 2em 0;
+			padding: 0.5em 0.75em;
+			color: red;
+			background: #fff0f0;
+			border: 1px solid red;
+			border-radius: 3px;
+			font-size: .875em;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<h1>Welcome to Fugu.</h1>
+	<p>
+		First, <a href="/fugu/viewer/index.html">create a new project</a>, then edit this file
+		(assets/demo.html) and insert the project id to start logging:<br>
+		<code>_fugu.push(['projectId', '###insert-project-id###']);</code>
+	</p>
+	<p>
+		This page will create a simple JavaScript error, which gets logged to the fugu database.
+		Use the <a href="/fugu/viewer/index.html">project interface</a> to inspect the results.
+	</p>
+	<div id="error"></div>
+
+	<script>
+		// -- Only needed for demo.html -----------------------------
+		var basePath = window.location.href.split('demo.html')[0];
+		// ----------------------------------------------------------
+
+		var _fugu = _fugu || [];
+		_fugu.push(['projectId', '###insert-project-id###']);
+
+		(function(filename) {
+			var script=document.createElement("script"); script.async=true; script.src=filename;
+			var s=document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(script,s);
+		})( basePath + 'fugu.errorlogger.js' );
+
+		// Trigger a JavaScript error which will be logged to the server
+		window.setTimeout(
+			function() {
+				var errorMessage = document.getElementById('error');
+				errorMessage.innerHTML     = 'jQuery();<br>&gt; Uncaught ReferenceError: jQuery is not defined'
+				errorMessage.style.display = "block";
+
+				// Trigger error
+				jQuery();
+			},
+			1000
+		);
+	</script>
+
+</body>
+</html>

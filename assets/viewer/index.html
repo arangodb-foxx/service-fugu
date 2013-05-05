@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fugu • Client side error logging with ArangoDB</title>
+	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap-responsive.min.css">
+	<link rel="stylesheet" href="css/screen.css">
+</head>
+<body>
+	<div id="wrap">
+		<div id="main">
+			<header class="subhead">
+				<div class="container-fluid page-header">
+					<h1>Fugu <small>Client side error logging</small></h1>
+				</div>
+			</header>
+			<div class="container-fluid" id="content"></div>
+		</div>
+	</div>
+	<footer class="footer" role="contentinfo">
+		<div class="container-fluid">
+			<strong>Fugu.</strong><br>
+			<small>
+				Powered by <a href="http://arangodb.org">ArangoDB</a> Foxx,
+				code is on <a href="https://github.com/fhemberger/arangofoxx-fugu">GitHub</a>.
+			</small>
+		</div>
+	</footer>
+
+	<script type="text/template" id="project-view-template">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Project Name</th>
+					<th>Project ID</th>
+					<th>Logs</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody id="project-list">
+			</tbody>
+		</table>
+		<button type="button" class="btn btn-primary btn-small pull-right new-project">Add new project</button>
+	</script>
+
+	<script type="text/template" id="project-list-template">
+		<% var counter = 1 %>
+		<% _.each(projects, function(project) { %>
+			<% if ( !_.isEmpty(project) ){ %>
+				<tr>
+					<td><%- counter %></td>
+					<td><%- project.name %></a></td>
+					<td><%- project._key %></td>
+					<td><a href="#<%- project._key %>/errors" class="btn btn-small"><i class="icon-list"></i> View logged errors</a></td>
+
+					<td class="text-right">
+						<a href="#<%- project._key %>" class="btn-invisible"><i class="icon-edit" title="Edit Project"></i></a>
+						<button type="button" class="btn-invisible delete-project" data-key="<%- project._key %>" data-name="<%- project.name %>"><i class="icon-remove-circle" title="Delete Project"></i></button>
+					</td>
+				</tr>
+				<% counter += 1 %>
+			<% } %>
+		<% }); %>
+	</script>
+
+	<script type="text/template" id="new-project-template">
+		<form class="form-horizontal">
+			<fieldset>
+				<legend>Create a new project</legend>
+				<div class="control-group">
+					<label class="control-label" for="projectName">Project name</label>
+					<div class="controls">
+						<input type="text" name="projectName" placeholder="My new project …">
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn btn-primary btn-small">Submit</button>
+						<button type="button" class="btn btn-small btn-cancel">Cancel</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</script>
+
+	<script type="text/template" id="new-project-success-template">
+		<h3>Project successfully created.</h3>
+		<p>Please add the following code to your project to start logging:</p>
+		<pre>
+			&lt;script&gt;
+			var _fugu = _fugu || [];
+			_fugu.push(['projectId', '<%- projectKey %>']);
+
+			(function(filename) {
+				var script=document.createElement("script"); script.async=true; script.src=filename;
+				var s=document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(script,s);
+			})( '<%- window.location.href.split('viewer/')[0] %>fugu.errorlogger.js' );
+			&lt;/script&gt;
+		</pre>
+		<a href="index.html" class="btn btn-primary btn-small pull-right">Back to project list</a>
+	</script>
+
+	<script type="text/template" id="edit-project-template">
+		<form class="form-horizontal">
+			<fieldset>
+				<legend>Edit project name</legend>
+				<div class="control-group">
+					<label class="control-label" for="projectName">Project name</label>
+					<div class="controls">
+						<input type="text" name="projectName" value="<%- projectName %>">
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn btn-primary btn-small">Submit</button>
+						<button type="button" class="btn btn-small btn-cancel">Cancel</button>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</script>
+
+	<script type="text/template" id="error-view-template">
+		<div class="row-fluid error-list">
+			<div class="span8"><h3>Errors for project: <%= projectName %></h3></div>
+			<div class="span4"><a href="index.html" class="btn btn-primary btn-small pull-right">Back to project list</a></div>
+		</div>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Timestamp</th>
+					<th>Error</th>
+				</tr>
+			</thead>
+			<tbody id="error-list">
+			</tbody>
+		</table>
+		<a href="index.html" class="btn btn-primary btn-small pull-right">Back to project list</a>
+	</script>
+
+	<script type="text/template" id="error-list-template">
+		<% var counter = 1 %>
+		<% _.each(errors, function(error) { %>
+			<tr>
+				<td><%- counter %></td>
+				<td>
+					<%= strftime("%Y-%m-%d<br>%H:%M:%S", error.timeStamp) %>
+				</td>
+				<td>
+					<div>
+						<strong>URL</strong>
+						<a href="<%- error.url %>" target="_blank"><%- error.url %></a> (Line <%- error.lineNumber %>)
+					</div>
+					<div>
+						<strong>Message</strong>
+						<%- error.error %>
+					</div>
+					<div>
+						<strong>User agent</strong>
+						<%- error.userAgent.browser.name %> <%- error.userAgent.browser.major %>
+						(<%- error.userAgent.os.name %> <%- error.userAgent.os.version %>)
+					</div>
+				<td></td>
+			</tr>
+			<% counter += 1 %>
+		<% }); %>
+	</script>
+
+	<script src="js/vendor.js"></script>
+	<script src="js/app.js"></script>
+
+</body>
+</html>
