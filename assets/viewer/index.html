@@ -155,13 +155,21 @@
 						<a href="<%- error.url %>" target="_blank"><%- error.url %></a> (Line <%- error.lineNumber %>)
 					</div>
 					<div>
+						<strong>type</strong>
+						<%- error.type %>
+					</div>
+					<div>
 						<strong>Message</strong>
-						<%- error.error %>
+						<%- error.message %>
 					</div>
 					<div>
 						<strong>User agent</strong>
 						<%- error.userAgent.browser.name %> <%- error.userAgent.browser.major %>
 						(<%- error.userAgent.os.name %> <%- error.userAgent.os.version %>)
+					</div>
+					<div>
+						<strong>Stacktrace</strong>
+						<%- error.stack %>
 					</div>
 				<td></td>
 			</tr>

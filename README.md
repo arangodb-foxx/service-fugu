@@ -25,11 +25,11 @@ Point your browser to `http://localhost:8529/fugu/viewer` and setup a new projec
 
 ## Known issues
 
-**Error logger:**  
-- Include stacktrace.js results in report
-
 **Project/logfile viewer:**  
 - Authentication (not necessary for development, but required for production)
+- Error count graph for configurable timespan
+- Filters (e.g. by timespan, url, error type, browser)
+- Search (combined with current filter settings)
 - Client side validation:
   - Create project: Valid project name
   - Error message if DB operations fail

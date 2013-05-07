@@ -31,7 +31,12 @@ function logError(error) {
 	}
 
 	var params = {
-		error      : error.message,
+		// Type of error: Error, EvalError, RangeError, ReferenceError,
+		// SyntaxError, TypeError, URIError or custom.
+		type       : error.name,
+		message    : error.message,
+		// Stacktrace
+		stack      : error.stack || printStackTrace({e: error}),
 		url        : error.filename,
 		lineNumber : error.lineno
 	};

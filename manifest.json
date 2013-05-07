@@ -22,6 +22,7 @@
     "fugu.errorlogger.js": {
       "files": [
         "assets/logger/intro.js",
+        "assets/logger/stacktrace-0.5.js",
         "assets/logger/errorlogger.js",
         "assets/logger/outro.js"
       ]
