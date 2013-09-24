@@ -22,7 +22,7 @@ var app = app || {};
 
 			if (this.options.projectKey) {
 				this.collection = app.Errors;
-				this.collection.url = 'projects/' + this.options.projectKey;
+				this.collection.url = 'viewer/projects/' + this.options.projectKey;
 				this.collection.fetch().done( _.bind(this.getProjectName, this) );
 			}
 		},

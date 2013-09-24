@@ -2,9 +2,9 @@
 <html>
 <head>
 	<title>Fugu • Client side error logging with ArangoDB</title>
-	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap-responsive.min.css">
-	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="viewer/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="viewer/vendor/bootstrap/css/bootstrap-responsive.min.css">
+	<link rel="stylesheet" href="viewer/css/screen.css">
 </head>
 <body>
 	<div id="wrap">
@@ -95,10 +95,10 @@
 			(function(filename) {
 				var script=document.createElement("script"); script.async=true; script.src=filename;
 				var s=document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(script,s);
-			})( '<%- window.location.href.split('viewer/')[0] %>fugu.errorlogger.js' );
+			})( '<%- window.location.href.split('/viewer')[0] %>/fugu.errorlogger.js' );
 			&lt;/script&gt;
 		</pre>
-		<a href="index.html" class="btn btn-primary btn-small pull-right">Back to project list</a>
+		<a href="viewer" class="btn btn-primary btn-small pull-right">Back to project list</a>
 	</script>
 
 	<script type="text/template" id="edit-project-template">
@@ -124,7 +124,7 @@
 	<script type="text/template" id="error-view-template">
 		<div class="row-fluid error-list">
 			<div class="span8"><h3>Errors for project: <%= projectName %></h3></div>
-			<div class="span4"><a href="index.html" class="btn btn-primary btn-small pull-right">Back to project list</a></div>
+			<div class="span4"><a href="viewer" class="btn btn-primary btn-small pull-right">Back to project list</a></div>
 		</div>
 
 		<table class="table table-striped">
@@ -138,7 +138,7 @@
 			<tbody id="error-list">
 			</tbody>
 		</table>
-		<a href="index.html" class="btn btn-primary btn-small pull-right">Back to project list</a>
+		<a href="viewer" class="btn btn-primary btn-small pull-right">Back to project list</a>
 	</script>
 
 	<script type="text/template" id="error-list-template">
@@ -177,8 +177,8 @@
 		<% }); %>
 	</script>
 
-	<script src="js/vendor.js"></script>
-	<script src="js/app.js"></script>
+	<script src="viewer/js/vendor.js"></script>
+	<script src="viewer/js/app.js"></script>
 
 </body>
 </html>

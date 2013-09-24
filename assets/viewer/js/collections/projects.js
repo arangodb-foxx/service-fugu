@@ -6,7 +6,7 @@ var app = app || {};
 
 	var ProjectCollection = Backbone.Collection.extend({
 		model : Backbone.Model.extend({ idAttribute: "_key" }),
-		url   : 'projects'
+		url   : 'viewer/projects'
 	});
 
 	app.Projects = new ProjectCollection();

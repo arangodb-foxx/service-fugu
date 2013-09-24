@@ -49,7 +49,9 @@
       ]
     },
     "/viewer/": {
-      "files": ["assets/viewer/index.html"]
+      "files": [
+        "assets/viewer/index.html"
+      ]
     }
   },
 
