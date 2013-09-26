@@ -1,9 +1,9 @@
 {
   "name": "Fugu",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A client side error logging service for ArangoDB",
 
-  "apps": {
+  "controllers": {
     "/logging/": "fugu.logger.js",
     "/viewer/": "fugu.viewer.js"
   },
@@ -17,7 +17,8 @@
     "demo.html": {
       "files": [
         "assets/demo.html"
-      ]
+      ],
+      "contentType": "text/html"
     },
     "fugu.errorlogger.js": {
       "files": [
@@ -48,7 +49,9 @@
       ]
     },
     "/viewer/": {
-      "files": ["assets/viewer/index.html"]
+      "files": [
+        "assets/viewer/index.html"
+      ]
     }
   },
 

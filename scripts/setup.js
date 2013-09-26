@@ -10,7 +10,7 @@ var collections = [
 ];
 
 for (var i = 0, len = collections.length; i < len; i++) {
-  var _coll = app.collectionName(collections[i]);
+  var _coll = applicationContext.collectionName(collections[i]);
   if (db._collection(_coll) === null) {
     db._create(_coll);
   } else {

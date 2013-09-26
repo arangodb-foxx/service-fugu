@@ -7,15 +7,16 @@ console  = require('console');
 UAParser = require('./lib/ua-parser');
 
 // Initialise a new FoxxApplication
-var FoxxApplication = require("org/arangodb/foxx").Application;
-var app = new FoxxApplication();
+var Foxx = require("org/arangodb/foxx");
+
+// this controller
+var controller = new Foxx.Controller(applicationContext);
 
 // Register Repositories (ArangoDB Collections)
-var projects = app.registerRepository('projects');
-var errors   = app.registerRepository('errors');
+var projects = new Foxx.Repository(controller.collection("projects"));
+var errors = new Foxx.Repository(controller.collection("errors"));
 
-
-app.post("/:projectkey", function(req, res) {
+controller.post("/:projectkey", function(req, res) {
   var content = '';
 
   try {
@@ -23,18 +24,15 @@ app.post("/:projectkey", function(req, res) {
     content.timeStamp = (new Date()).toISOString();
     content.userAgent = (new UAParser(req.headers['user-agent'] || '')).getResult();
 
-    var project = repositories.projects.collection.firstExample("_key", req.params("projectkey"));
+    var project = projects.collection.firstExample("_key", req.params("projectkey"));
     if (project && project._key) {
       content.project_key = project._key;
-      repositories.errors.collection.save(content);
+      errors.collection.save(content);
     }
   } catch(e) {
-    console.error('[Fugu] Unable to parse error request body.');
+    console.error('[Fugu] Unable to parse error request body.'+ e.message);
   }
 
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Content-Type', 'text/plain');
 });
-
-
-app.start(applicationContext);
