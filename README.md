@@ -2,28 +2,32 @@
 
 ### A client side error logging service for ArangoDB
 
-This is a demo application for the ArangoDB Foxx framework, which lets you log client side JavaScript errors (e.g. from your webapp or mobile app) to a ArangoDB database for debugging.
+This is a demo application for the ArangoDB Foxx framework, which lets you log client side JavaScript errors
+(e.g. from your webapp or mobile app) to a ArangoDB database for debugging.
 
 It consists of two parts:
 1) **fugu.logger.js**, which logs the incoming errors to the database
 2) **fugu.viewer.js**, a minimal frontend to setup new projects and view the logged messages.
 
+You can log errors from any application/website/mobile app. While setting up a project (see below) you get a short
+JavaScript snippet. Include this snippet in your website/app and you are ready to go.
 
 ## Installation
 Start your ArangoDB server:
 
-    $ arangod --javascript.dev-app-path /path/to/fugu /path/to/your/arango_db
+    $ arangod  /path/to/your/arango_db
 
-Then install the application using the ArangoDB shell:
+Then install the application using foxx-manager. Foxx-manager is Foxx's repository manager which gives you easy access
+to the Foxx apps listed in https://github.com/triAGENS/foxx-apps.
 
-    $ arangosh
-    arangosh> aal = require('org/arangodb/aal')
-    arangosh> aal.installApp('fugu', '/fugu')
+    $ foxx-manager update
+    $ foxx-manager available
+    $ foxx-manager install arangodb-fugu /fugu
 
 Point your browser to `http://localhost:8529/fugu/viewer` and setup a new project. You also find instructions there how to add the logging code to your web app.
 
 
-## Known issues
+## Next Todos
 
 **Project/logfile viewer:**  
 - Authentication (not necessary for development, but required for production)
@@ -38,5 +42,5 @@ Point your browser to `http://localhost:8529/fugu/viewer` and setup a new projec
 
 
 ## License
-Copyright (c) 2013 Frederic Hemberger.  
+Copyright (c) 2013 Frederic Hemberger.
 Licensed under the [MIT license](LICENSE-MIT).
