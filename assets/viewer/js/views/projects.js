@@ -33,6 +33,8 @@ var app = app || {};
 
 		initialize: function() {
 			app.trigger('view:change', this);
+                        $('#logout').removeAttr("disabled");
+                        $('#logout').css("visibility", "visible");
 
 			this.collection = app.Projects;
 			this.collection.fetch().done( _.bind(this.render, this) );
