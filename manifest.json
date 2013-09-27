@@ -3,6 +3,17 @@
   "version": "0.1.1",
   "description": "A client side error logging service for ArangoDB",
 
+  "contributors": [
+    { 
+      "name": "luebbert42"
+    },
+    { 
+      "name": "jsteemann"
+    }
+  ],
+
+  "defaultDocument": "viewer",
+
   "controllers": {
     "/logging/": "fugu.logger.js",
     "/viewer/": "fugu.viewer.js"
@@ -41,6 +52,7 @@
       "files": [
         "assets/viewer/js/collections/projects.js",
         "assets/viewer/js/collections/errors.js",
+        "assets/viewer/js/views/login.js",
         "assets/viewer/js/views/projects.js",
         "assets/viewer/js/views/newProject.js",
         "assets/viewer/js/views/editProject.js",

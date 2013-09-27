@@ -1,5 +1,5 @@
 /*global Backbone, jQuery, _ */
-var app = app || {};
+var app = window.app || {};
 
 (function ($) {
 	'use strict';
@@ -15,21 +15,37 @@ var app = app || {};
 			'click .btn-cancel' : 'cancelForm'
 		},
 
-		submitForm: function() {
-			this.options.project.set('name', this.$el.find('input[name=projectName]').val());
-			this.options.project.save();
-			new app.ProjectView();
+		submitForm: function(event) {
+                        event.preventDefault();
 
-			return false;
+			var name = this.$el.find('input[name=projectName]').val();
+                        name = name.replace(/(^\s+|\s+$)/g, '');
+
+                        if (name === '') {
+                            alert('Please enter a valid name');
+                            return; 
+                        }
+
+                        var project = this.options.project;
+                        project.set('name', name);
+			project.on('error', function (model) {
+                            alert('Unable to save project. Please choose a different name.');
+                        });
+			project.on('sync', function (model) {
+                            project.off();
+                            app.Router.navigate("home", { trigger: true });
+                        });
+
+			this.options.project.save();
 		},
 
-		cancelForm: function() {
-			new app.ProjectView();
+		cancelForm: function(event) {
+                        event.preventDefault();
+                        app.Router.navigate("home", { trigger: true });
 		},
 
 		initialize: function() {
 			app.trigger('view:change', this);
-
 			if (this.options.projectKey) {
 				this.collection = app.Projects;
 				this.collection.fetch().done( _.bind(this.render, this) );

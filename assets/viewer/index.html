@@ -12,7 +12,11 @@
 			<header class="subhead">
 				<div class="container-fluid page-header">
 					<h1>Fugu <small>Client side error logging</small></h1>
+                                        <div>
+                                                  <button type="button" class="btn btn-primary btn-small pull-right logout" id="logout" style="visibility:hidden">Logout</button>
+                                        </div>
 				</div>
+		
 			</header>
 			<div class="container-fluid" id="content"></div>
 		</div>
@@ -22,10 +26,36 @@
 			<strong>Fugu.</strong><br>
 			<small>
 				Powered by <a href="http://arangodb.org">ArangoDB</a> Foxx,
-				code is on <a href="https://github.com/fhemberger/arangofoxx-fugu">GitHub</a>.
+				code is on <a href="https://github.com/arangodb/fugu">GitHub</a>.
+				Check the <a href="demo.html">demo page</a> for info on setting up error logging.
 			</small>
 		</div>
 	</footer>
+	
+        <script type="text/template" id="login-template">
+                <form name="login" action="viewer/login" method="post" accept-charset="utf-8">
+			<fieldset>
+				<legend>Login</legend>
+                      	        <div class="control-group">
+			                <label class="control-label" for="username">User name</label>
+      			                <div class="controls">
+			                        <input type="text" name="username" placeholder="Username">
+			                </div>
+  	                        </div>
+			        <div class="control-group">
+				        <label class="control-label" for="password">Password</label>
+				        <div class="controls">
+					        <input type="password" name="password">
+                                        </div>
+			        </div>
+			        <div class="control-group">
+				        <div class="controls">
+					        <button type="submit" class="btn btn-primary btn-small login">Login</button>
+				        </div>
+                                </div>
+                        </fieldset>
+                </form>
+	</script>
 
 	<script type="text/template" id="project-view-template">
 		<table class="table table-striped">
@@ -52,10 +82,10 @@
 					<td><%- counter %></td>
 					<td><%- project.name %></a></td>
 					<td><%- project._key %></td>
-					<td><a href="#<%- project._key %>/errors" class="btn btn-small"><i class="icon-list"></i> View logged errors</a></td>
+					<td><a href="#<%- project._key %>/errors" class="btn btn-small"><i class="icon-list"></i> View logged errors (<%- project.errors %>)</a></td>
 
 					<td class="text-right">
-						<a href="#<%- project._key %>" class="btn-invisible"><i class="icon-edit" title="Edit Project"></i></a>
+						<a href="#edit/<%- project._key %>" class="btn-invisible"><i class="icon-edit" title="Edit Project"></i></a>
 						<button type="button" class="btn-invisible delete-project" data-key="<%- project._key %>" data-name="<%- project.name %>"><i class="icon-remove-circle" title="Delete Project"></i></button>
 					</td>
 				</tr>
@@ -65,7 +95,7 @@
 	</script>
 
 	<script type="text/template" id="new-project-template">
-		<form class="form-horizontal">
+		<form class="form-horizontal" method="post">
 			<fieldset>
 				<legend>Create a new project</legend>
 				<div class="control-group">
@@ -102,7 +132,7 @@
 	</script>
 
 	<script type="text/template" id="edit-project-template">
-		<form class="form-horizontal">
+		<form class="form-horizontal" method="post">
 			<fieldset>
 				<legend>Edit project name</legend>
 				<div class="control-group">

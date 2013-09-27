@@ -30,7 +30,7 @@
 	</p>
 	<p>
 		This page will create a simple JavaScript error, which gets logged to the fugu database.
-		Use the <a href="/fugu/viewer/index.html">project interface</a> to inspect the results.
+		Use the <a href="viewer">projects interface</a> to inspect the results.
 	</p>
 	<div id="error"></div>
 
@@ -41,8 +41,8 @@
 
 		var _fugu = _fugu || [];
 		_fugu.push(['projectId', '###insert-project-id###']);
-
-		(function(filename) {
+		
+                (function(filename) {
 			var script=document.createElement("script"); script.async=true; script.src=filename;
 			var s=document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(script,s);
 		})( basePath + 'fugu.errorlogger.js' );

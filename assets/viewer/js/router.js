@@ -1,5 +1,5 @@
 /*global Backbone, _ */
-var app = app || {};
+var app = window.app || {};
 
 (function () {
 	'use strict';
@@ -9,7 +9,9 @@ var app = app || {};
 	app.currentView = undefined;
 
 	app.on('view:change', function(newView) {
-		if (app.currentView) { app.currentView.stopListening(); }
+		if (app.currentView && app.currentView !== newView) { 
+                    app.currentView.undelegateEvents();
+                }
 		app.currentView = newView;
 	});
 
@@ -17,28 +19,74 @@ var app = app || {};
 	var Router = Backbone.Router.extend({
 		routes: {
 			''            : 'showProjects',
-			':key'        : 'editProjectDetails',
-			':key/'       : 'editProjectDetails',
-			':key/errors' : 'showProjectErrors'
+			'home'        : 'showProjects',
+                        'new'         : 'newProject',
+			'edit/:key'   : 'editProjectDetails',
+			':key/errors' : 'showProjectErrors',
+                        'login'       : 'login',
+                        'logout'      : 'logout'
 		},
 
 		initialize: function() {
 			Backbone.history.start();
 		},
 
+                login: function() {
+                        new app.LoginView();
+                },
+
+                logout: function() {
+                        $.ajax({
+                                url: "viewer/logout",
+                                type: "post",
+                                dataType: "json",
+                                success: function(result) {
+                                        $('#logout').attr("disabled", "disabled");
+                                        window.app.Router.navigate('login', { trigger: true});
+                                },
+                                error: function(result) {
+                                        alert('Unable to log out');
+                                }
+                        });
+                },
+
+                newProject: function() {
+			new app.NewProjectView();
+                },
+
 		showProjects: function() {
-			new app.ProjectView();
+                        new app.ProjectView();
 		},
 
 		editProjectDetails: function(key) {
-			new app.EditProjectView({projectKey: key});
+			new app.EditProjectView({ projectKey: key });
 		},
 
 		showProjectErrors: function(key) {
-			new app.ErrorView({projectKey: key});
+			new app.ErrorView({ projectKey: key });
 		}
 	});
 
-	app.TodoRouter = new Router();
+        $.ajaxSetup({
+                statusCode: {
+                      401: function(){
+                            window.app.Router.navigate('login', { trigger: true });
+//                            window.location.replace('/#login');
+                      },
+                      403: function() {
+                            window.app.Router.navigate('login', { trigger: true });
+                            //window.location.replace('/#denied');
+                      }
+                }
+        });
+
+        app.Router = new Router();
+        
+        $('#logout').on('click', function () {
+                app.Router.logout();
+        });
+	
 
 })();
+
+

@@ -17,7 +17,7 @@ var app = app || {};
 		},
 
 		showNewProjectView: function() {
-			new app.NewProjectView();
+                        app.Router.navigate("new", { trigger: true });
 		},
 
 		deleteProject: function(event) {
@@ -33,16 +33,18 @@ var app = app || {};
 
 		initialize: function() {
 			app.trigger('view:change', this);
-			$('#content').html( this.projectViewTemplate() );
 
 			this.collection = app.Projects;
 			this.collection.fetch().done( _.bind(this.render, this) );
 		},
 
 		render: function() {
+			app.trigger('view:change', this);
+			$('#content').html( this.projectViewTemplate() );
 			var html = this.projectListTemplate({ projects: this.collection.toJSON() });
 			$('#project-list').html(html);
 			return this;
 		}
+
 	});
 })(jQuery);

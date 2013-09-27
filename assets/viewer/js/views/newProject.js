@@ -1,5 +1,5 @@
 /*global Backbone, jQuery, _ */
-var app = app || {};
+var app = window.app || {};
 
 (function ($) {
 	'use strict';
@@ -16,21 +16,36 @@ var app = app || {};
 			'click .btn-cancel' : 'cancelForm'
 		},
 
-		submitForm: function() {
-			var view = this;
-			this.collection.on('sync', function(model) {
-				$('#content').html(view.newProjectSuccessViewTemplate({ projectKey: model.get('_key') }));
-			});
+		submitForm: function(event) {
+                        event.preventDefault();
+			var name = this.$el.find('input[name=projectName]').val();
+                        name = name.replace(/(^\s+|\s+$)/g, '');
 
-			this.collection.create(
-				{ name : this.$el.find('input[name=projectName]').val() },
-				{ wait: true }
-			);
-			return false;
+                        if (name === '') {
+                            alert('Please enter a valid name');
+                            return; 
+                        }
+
+			var view = this;
+                        var project = this.collection.create(
+                            { name: name },
+                            { 
+                              wait: true,
+                              success: function (model) {
+   				  $('#content').html(view.newProjectSuccessViewTemplate({ projectKey: model.get('_key') }));
+                              },
+                              error: function (model) {
+                                  view.collection.remove(model);
+                                  alert('Unable to save project. Please choose a different name.');
+                              }
+                            }
+                        );
+
 		},
 
-		cancelForm: function() {
-			new app.ProjectView();
+		cancelForm: function(event) {
+                        event.preventDefault();
+                        app.Router.navigate("home", { trigger: true });
 		},
 
 		initialize: function() {

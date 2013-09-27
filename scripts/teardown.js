@@ -1,16 +1,22 @@
-'use strict';
+(function() {
+  'use strict';
 
-var arangodb = require("org/arangodb");
-var db       = arangodb.db;
+  var db = require("org/arangodb").db;
 
-var collections = [
-  'projects',
-  'errors'
-];
-
-for (var i = 0, len = collections.length; i < len; i++) {
-  var _coll = app.collectionName(collections[i]);
-  if (db._collection(_coll) !== null) {
-    db._collection(_coll).drop();
-   }
-}
+  // tear down collections
+  [ 'projects', 'errors' ].forEach(function(name) {
+    var coll = app.collectionName(name);
+    if (db._collection(coll) !== null) {
+      db._collection(coll).drop();
+    }
+  });
+  
+  // tear down authentication
+  var f = require("org/arangodb/foxx/authentication");
+ 
+  var users = new f.Users(applicationContext);
+  users.teardown();
+  
+  var sessions = new f.Sessions(applicationContext);
+  sessions.teardown();
+}());

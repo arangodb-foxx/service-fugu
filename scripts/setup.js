@@ -1,19 +1,45 @@
-'use strict';
+(function () {
+  'use strict';
 
-var console  = require("console");
-var arangodb = require("org/arangodb");
-var db       = arangodb.db;
+  var console  = require("console");
+  var db       = require("org/arangodb").db;
 
-var collections = [
-  'projects',
-  'errors'
-];
+  // setup projects & errors collection
+  var collections = [
+    'projects',
+    'errors'
+  ];
 
-for (var i = 0, len = collections.length; i < len; i++) {
-  var _coll = applicationContext.collectionName(collections[i]);
-  if (db._collection(_coll) === null) {
-    db._create(_coll);
-  } else {
-    console.warn("collection '%s' already exists. Leaving it untouched.", _coll);
-  }
-}
+  [ 'projects', 'errors' ].forEach(function(name) {
+    var coll = applicationContext.collectionName(name);
+    if (db._collection(coll) === null) {
+      db._create(coll);
+    } else {
+      console.log("collection '%s' already exists. Leaving it untouched.", coll);
+    }
+
+    if (name === 'projects') {
+      db[coll].ensureUniqueConstraint("name");
+    }
+    else if (name === 'errors') {
+      db[coll].ensureSkiplist('project_key');
+    }
+  });
+
+  // setup authentication
+  var f = require("org/arangodb/foxx/authentication");
+
+  // set up users
+  var users = new f.Users(applicationContext);
+  users.setup({ journalSize: 1 * 1024 * 1024 });
+
+  // set up a default admin user
+  users.add("admin", "secret", true, {
+    name: "Root",
+    admin: true
+  });
+
+  // set up sessions
+  var s = new f.Sessions(applicationContext);
+  s.setup();
+}());
