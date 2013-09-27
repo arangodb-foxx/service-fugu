@@ -22,7 +22,7 @@ to the Foxx apps listed in https://github.com/triAGENS/foxx-apps.
 
     $ foxx-manager update
     $ foxx-manager available
-    $ foxx-manager install arangodb-fugu /fugu
+    $ foxx-manager install fugu /fugu
 
 Point your browser to `http://localhost:8529/fugu/viewer` and setup a new project. You also find instructions there how to add the logging code to your web app.
 
