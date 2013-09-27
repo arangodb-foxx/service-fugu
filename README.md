@@ -18,19 +18,22 @@ Start your ArangoDB server:
     $ arangod  /path/to/your/arango_db
 
 Then install the application using foxx-manager. Foxx-manager is Foxx's repository manager which gives you easy access
-to the Foxx apps listed in https://github.com/triAGENS/foxx-apps.
+to the Foxx apps listed in https://github.com/arangodb/foxx-apps.
 
     $ foxx-manager update
     $ foxx-manager available
-    $ foxx-manager install arangodb-fugu /fugu
+    $ foxx-manager install fugu /fugu
 
 Point your browser to `http://localhost:8529/fugu/viewer` and setup a new project. You also find instructions there how to add the logging code to your web app.
 
+To login into the viewer, use the following credentials:
+* username: admin
+* password: secret
 
 ## Next Todos
 
 **Project/logfile viewer:**  
-- Authentication (not necessary for development, but required for production)
+- Multi-user management (currently only one user is supported)
 - Error count graph for configurable timespan
 - Filters (e.g. by timespan, url, error type, browser)
 - Search (combined with current filter settings)
