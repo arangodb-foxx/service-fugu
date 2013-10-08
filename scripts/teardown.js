@@ -5,7 +5,7 @@
 
   // tear down collections
   [ 'projects', 'errors' ].forEach(function(name) {
-    var coll = app.collectionName(name);
+    var coll = applicationContext.collectionName(name);
     if (db._collection(coll) !== null) {
       db._collection(coll).drop();
     }
