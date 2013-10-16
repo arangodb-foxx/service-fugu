@@ -2,6 +2,7 @@
   "name": "fugu",
   "version": "0.1.1",
   "description": "A client side error logging service for ArangoDB",
+  "thumbnail": "thumbnail.png",
   "author": "fhemberger",
 
   "contributors": [
