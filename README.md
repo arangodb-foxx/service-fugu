@@ -1,5 +1,7 @@
 # Fugu
 
+![Fugu-Screenshot](https://www.arangodb.org/wp-content/uploads/2013/10/screenshot.png)
+
 ### A client side error logging service for ArangoDB
 
 This is a demo application for the ArangoDB Foxx framework, which lets you log client side JavaScript errors
