@@ -1,16 +1,20 @@
 {
   "name": "fugu",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A client side error logging service for ArangoDB",
   "thumbnail": "thumbnail.png",
   "author": "fhemberger",
+  "engines": "~2.2",
 
   "contributors": [
-    { 
+    {
       "name": "luebbert42"
     },
-    { 
+    {
       "name": "jsteemann"
+    },
+    {
+      "name": "Alan Plum"
     }
   ],
 

@@ -5,11 +5,6 @@
   var db       = require("org/arangodb").db;
 
   // setup projects & errors collection
-  var collections = [
-    'projects',
-    'errors'
-  ];
-
   [ 'projects', 'errors' ].forEach(function(name) {
     var coll = applicationContext.collectionName(name);
     if (db._collection(coll) === null) {

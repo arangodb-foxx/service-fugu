@@ -1,10 +1,7 @@
-/*jshint unused:false */
-/*global console:true, UAParser:true, repositories */
-
 'use strict';
 
-console  = require('console');
-UAParser = require('./lib/ua-parser');
+var console  = require('console');
+var UAParser = require('./lib/ua-parser');
 
 // Initialise a new FoxxApplication
 var Foxx = require("org/arangodb/foxx");
@@ -13,8 +10,8 @@ var Foxx = require("org/arangodb/foxx");
 var controller = new Foxx.Controller(applicationContext);
 
 // Register Repositories (ArangoDB Collections)
-var projects = new Foxx.Repository(controller.collection("projects"));
-var errors = new Foxx.Repository(controller.collection("errors"));
+var projects = new Foxx.Repository(applicationContext.collection("projects"));
+var errors = new Foxx.Repository(applicationContext.collection("errors"));
 
 controller.post("/:projectkey", function(req, res) {
   var content = '';
