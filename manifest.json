@@ -4,7 +4,9 @@
   "description": "A client side error logging service for ArangoDB",
   "thumbnail": "thumbnail.png",
   "author": "fhemberger",
-  "engines": "~2.2",
+  "engines": {
+    "arangodb": "~2.2"
+  },
 
   "contributors": [
     {
