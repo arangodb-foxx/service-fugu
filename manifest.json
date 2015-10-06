@@ -5,7 +5,7 @@
   "thumbnail": "thumbnail.png",
   "author": "fhemberger",
   "engines": {
-    "arangodb": "~2.2"
+    "arangodb": ">=2.2"
   },
 
   "contributors": [
@@ -29,9 +29,10 @@
 
   "lib": ".",
 
-  "setup": "scripts/setup.js",
-  "teardown": "scripts/teardown.js",
-
+  "scripts" : {
+    "setup": "scripts/setup.js",
+    "teardown": "scripts/teardown.js"
+  },
   "assets": {
     "demo.html": {
       "files": [
