@@ -5,7 +5,7 @@
   "thumbnail": "thumbnail.png",
   "author": "fhemberger",
   "engines": {
-    "arangodb": ">=2.2"
+    "arangodb": "^2.2"
   },
 
   "contributors": [
