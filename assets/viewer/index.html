@@ -16,7 +16,7 @@
                                                   <button type="button" class="btn btn-primary btn-small pull-right logout" id="logout" style="visibility:hidden">Logout</button>
                                         </div>
 				</div>
-		
+
 			</header>
 			<div class="container-fluid" id="content"></div>
 		</div>
@@ -31,7 +31,7 @@
 			</small>
 		</div>
 	</footer>
-	
+
         <script type="text/template" id="login-template">
                 <form name="login" action="viewer/login" method="post" accept-charset="utf-8">
 			<fieldset>
@@ -129,7 +129,7 @@
 			})( '<%- window.location.href.split('/viewer')[0] %>/fugu.errorlogger.js' );
 			&lt;/script&gt;
 		</pre>
-		<a href="viewer" class="btn btn-primary btn-small pull-right">Back to project list</a>
+		<a href="index.html" class="btn btn-primary btn-small pull-right">Back to project list</a>
 	</script>
 
 	<script type="text/template" id="edit-project-template">
@@ -155,7 +155,7 @@
 	<script type="text/template" id="error-view-template">
 		<div class="row-fluid error-list">
 			<div class="span8"><h3>Errors for project: <%= projectName %></h3></div>
-			<div class="span4"><a href="viewer" class="btn btn-primary btn-small pull-right">Back to project list</a></div>
+			<div class="span4"><a href="index.html" class="btn btn-primary btn-small pull-right">Back to project list</a></div>
 		</div>
 
 		<table class="table table-striped">
@@ -169,7 +169,7 @@
 			<tbody id="error-list">
 			</tbody>
 		</table>
-		<a href="viewer" class="btn btn-primary btn-small pull-right">Back to project list</a>
+		<a href="index.html" class="btn btn-primary btn-small pull-right">Back to project list</a>
 	</script>
 
 	<script type="text/template" id="error-list-template">
